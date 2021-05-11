@@ -1,0 +1,60 @@
+
+
+public class GenerujTvar{
+  private Valec valec;
+  private Kruh kruh;
+  private Obdlznik obdlznik;
+  
+  public GenerujTvar(){
+    System.out.println("Zadaj hodnoty pre valec: ");
+    valec = new Valec();
+    
+    System.out.println("Zadaj hodnoty pre kruh: ");
+    kruh = new Kruh();
+    
+    System.out.println("Zadaj hodnoty pre obdlznik: ");
+    obdlznik = new Obdlznik();
+  }
+  
+  public GenerujTvar(String tvar){
+    switch (tvar) {
+      case  "v": 
+        valec = new Valec();
+        break;
+      case  "k": 
+        kruh = new Kruh();
+        break;
+      case "o":
+        obdlznik = new Obdlznik();
+        break;   
+    } // end of switch 
+  }
+
+  
+  public static void menu(){
+    System.out.println("Vyber si tvar");
+    System.out.println("Valec (v)");
+    System.out.println("Kruh (k)");
+    System.out.println("Obdlznik (o)");
+    System.out.println("Vetky tri (t)\n");
+  }
+ 
+  public static void main(String arg[]){
+    
+    String volba = "p";     
+    menu();
+    
+    do{
+       //volba = input.nextLine();
+    }while(volba != "o" && volba != "v");
+    
+    
+    System.out.println(volba);
+    if(volba == "t"){
+      GenerujTvar tvar = new GenerujTvar();
+    }else {
+       GenerujTvar tvar1 = new GenerujTvar(volba);
+    } // end of if-else
+  }
+}
+

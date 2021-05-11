@@ -1,0 +1,14 @@
+public class GenerujTvar2D{
+  public static Tvar2D generujTvar2D(){
+    switch ((int)Math.random() * 3) {
+      default:
+      case  0: return new Kruh();
+      case  1: return new Obdlznik();
+      case  2: return new Trojuholnik();
+         
+    }
+    
+  }
+
+}
+

@@ -1,0 +1,53 @@
+﻿[Files]
+File0=C:\Users\peleg\OneDrive\Pocitac\Tibor\D U do skoly\VYT\Java\Test6\pr1\GenerujClovek.java
+File1=C:\Users\peleg\OneDrive\Pocitac\Tibor\D U do skoly\VYT\Java\Test6\pr1\Zamestnanec.java
+
+[Box:  - Clovek]
+X=30
+Y=34
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - GenerujClovek]
+X=595
+Y=73
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Zamestnanec]
+X=715
+Y=151
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Diagram]
+comments=0
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+ShowConnections=0
+Fontname=Segoe UI
+Fontsize=12
+ShowObjectDiagram=0
+
+[Connections]
+V0=Zamestnanec#Clovek#Inheritends####0#0#0###0#0
+
+[Interactive]
+I0=
+
