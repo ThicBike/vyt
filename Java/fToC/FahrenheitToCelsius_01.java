@@ -4,12 +4,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button; 
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane; 
+import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.scene.text.*;
 import javafx.geometry.Pos;
 import javafx.event.EventHandler;
 import javafx.event.Event;     
+import javafx.geometry.Insets;
+import java.io.InputStream;
+import javafx.scene.image.*;
+import java.util.regex.Pattern.*;
 
 
 public class FahrenheitToCelsius_01 extends Application{
@@ -21,29 +26,64 @@ public class FahrenheitToCelsius_01 extends Application{
   
   @Override
   public void start(Stage stage){
-    
-    
-    
     txtInput = new TextField("Zadaj stupne Fahrenheita");
-    lbFahrenheit = new Label("캟");
-    lbOutput = new Label("ddd");
+    lbFahrenheit = new Label("째F");
+    lbFahrenheit.setFont(Font.font("Segoe Print", FontWeight.BOLD, 14));
+    lbOutput = new Label();
     lbOutput.setStyle("-fx-background-color: yellow;");
-    lbCelsius = new Label("캜");
-    btConvert = new Button("캟 to 캜sfsfesefrearseefsrfefsefesffssf");
-    btConvert.setStyle("-fx-background-color: red;");
+    
+    lbOutput.setMinWidth(170);
+    lbCelsius = new Label("째C");
+    lbCelsius.setFont(Font.font("Segoe Print", FontWeight.BOLD, 14));
+    btConvert = new Button("째F to 째C");
+    btConvert.setFont(Font.font("Segoe Print", FontWeight.BOLD, 14));
+    btConvert.setOnAction(new ButtonClick());
+
+    InputStream iconStream = getClass().getResourceAsStream("thermometer.png");
+    Image icon = new Image(iconStream);
+    stage.getIcons().add(icon);
     
     gridPane = new GridPane();
     
+    gridPane.setVgap(10);
+    gridPane.setHgap(10);
     gridPane.setAlignment(Pos.CENTER);
+    gridPane.setHalignment(btConvert, HPos.CENTER);
     
-    gridPane.add(txtInput, 0, 0, 1, 1);
+    gridPane.setMargin(txtInput, new Insets(15, 0, 0, 15));
+    gridPane.setMargin(lbFahrenheit, new Insets(15, 15, 0, 0));
+    gridPane.setMargin(lbOutput, new Insets(0, 0, 0, 15));
+    gridPane.setMargin(lbCelsius, new Insets(0, 15, 0, 0));
+    gridPane.setMargin(btConvert, new Insets(0, 0, 15, 0));
+      
+    gridPane.add(txtInput, 0, 0, 1, 1);   
     gridPane.add(lbFahrenheit, 1, 0, 1, 1);
     gridPane.add(lbOutput, 0, 1, 1, 1);
     gridPane.add(lbCelsius, 1, 1, 1, 1);
     gridPane.add(btConvert, 0, 2, 2, 1);
 
-    scene = new Scene(gridPane, 400, 200);
+    scene = new Scene(gridPane);
+    stage.setTitle("째F to 째C");
     stage.setScene(scene);
     stage.show();
   }
+  
+  
+  class ButtonClick implements EventHandler{
+    @Override
+    public void handle(Event evt){
+      String input = txtInput.getText();
+      
+      if(Pattern.matches("[0-9]")){
+        lbOutput.setText(Convet.fahrenheitToCelsius);
+      }else{
+        lbOutput.setText("Zla hodnota!");
+      }
+
+      
+      
+      
+      
+    }
+  } 
 }
