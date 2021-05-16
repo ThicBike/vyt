@@ -1,98 +1,175 @@
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button; 
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane; 
-import javafx.geometry.HPos;
-import javafx.scene.Scene;
-import javafx.scene.text.Font;
-import javafx.scene.text.*;
-import javafx.geometry.Pos;
-import javafx.event.EventHandler;
-import javafx.event.Event;     
-import javafx.geometry.Insets;
 import java.io.InputStream;
-import javafx.scene.image.*;
+import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.lang.Float;
-import java.lang.String;
-import javafx.scene.control.Alert; 
 
-public class FahrenheitToCelsius_01 extends Application{
-  private Label lbFahrenheit, lbCelsius, lbOutput;
-  private TextField txtInput;
-  private Button btConvert;
-  private GridPane gridPane;
-  private Scene scene;
+//BYTECODE *.class -> JVM  -> prikaz -> java
+//JIT -> *.exe 
+class Clovek{   //trieda je programatorom zadefinovany zlozeny datovy typ(struktura) zapuzdruje dat polozky a metody        
+                        //trieda viditelna v ramci adresara
+                       //trieda charakterizuje pomocou datovych poloziek vlastnosti objektu
+  //datove poloznky  - vlastnosti objektu  //vzdy private
+  // start attributes
+  //protected String meno;
+  //String meno;   //Friendly - viditelna v ramci adresara(balicka)
+  private String meno;              //string je obalovy datovy typ
+  private String priezvisko;
+  private int vek;
+  private String pohlavie;
+  //staticka datova polozka 
+  //datova polozka je pristupna cez triedu aj objekt
+  private static int pocetLudi;
+  // end attributes
   
-  @Override
-  public void start(Stage stage){
-    txtInput = new TextField("Zadaj stupne Fahrenheita");
-    txtInput.setMinWidth(150);
-    txtInput.setAlignment(Pos.TOP_RIGHT);
+  /*
+    public static void main(String arg[]){
+    //trieda objekt = operator imp.konstruktor            //objekt je premenna typu trieda
+    Clovek adam = new Clovek();                       //Clovek() implicitny  //kontruktor-inicializuje datove polozky
+                                                      //triedu na null , ine na nahodne
+    System.out.println(adam.meno + " " + adam.priezvisko + " " + adam.vek + " " + adam.pohlavie);
+    adam.meno = "Adam";
+    adam.priezvisko = "Prvy";
+    adam.vek = 100;                         
+    adam.pohlavie = "Muz";
+    System.out.println(adam.meno + " " + adam.priezvisko + " " + adam.vek + " " + adam.pohlavie);
+    Clovek eva = new Clovek();
+    System.out.println(eva.meno + " " + eva.priezvisko + " " + eva.vek + " " + eva.pohlavie);
+    eva.meno = "Eva";
+    eva.priezvisko = "Prva";
+    eva.vek = 100;
+    eva.pohlavie = "Zena";
+    System.out.println(eva.meno + " " + eva.priezvisko + " " + eva.vek + " " + eva.pohlavie);
+  }
+  */
+  
+  
+  //explicitny konstruktor
+  //konstruktor vzdy public                                                                                                        
+  //nema ziadnu navratovu hodnotu ani void
+  //nazov konstruktora = nazov triedy
+  
+  
+  public Clovek(){
+    Scanner sc = new Scanner(System.in);
     
-    lbFahrenheit = new Label("°F");
-    lbFahrenheit.setStyle("-fx-font-family: 'Segoe Print'; -fx-font-weight: bold; -fx-font-size: 14px;");
-    
-    lbOutput = new Label();
-    lbOutput.setStyle("-fx-background-color: yellow;");
-    lbOutput.setAlignment(Pos.TOP_RIGHT);
-    lbOutput.setMinWidth(150);
-    
-    lbCelsius = new Label("°C");
-    lbCelsius.setStyle("-fx-font-family: 'Segoe Print'; -fx-font-weight: bold; -fx-font-size: 14px;");
-    
-    btConvert = new Button("°F to °C");
-    btConvert.setStyle("-fx-font-family: 'Segoe Print'; -fx-font-weight: bold; -fx-font-size: 14px;");
-    btConvert.setOnAction(new ButtonClick());
-
-    InputStream iconStream = getClass().getResourceAsStream("thermometer.png");
-    
-    Image icon = new Image(iconStream);
-    stage.getIcons().add(icon);
-    
-    gridPane = new GridPane();
-    gridPane.setVgap(10);
-    gridPane.setHgap(10);
-    gridPane.setAlignment(Pos.CENTER);
-    gridPane.setHalignment(btConvert, HPos.CENTER);
-    
-    
-    gridPane.setMargin(txtInput, new Insets(15, 0, 0, 15));
-    gridPane.setMargin(lbFahrenheit, new Insets(15, 15, 0, 0));
-    gridPane.setMargin(lbOutput, new Insets(0, 0, 0, 15));
-    gridPane.setMargin(lbCelsius, new Insets(0, 15, 0, 0));
-    gridPane.setMargin(btConvert, new Insets(0, 0, 15, 0));
+    do{
+      System.out.print("Zadaj meno: ");
+      meno = sc.nextLine();
+      meno = meno.substring(0,1).toUpperCase() + meno.substring(1).toLowerCase();
       
-    gridPane.add(txtInput, 0, 0, 1, 1);   
-    gridPane.add(lbFahrenheit, 1, 0, 1, 1);
-    gridPane.add(lbOutput, 0, 1, 1, 1);
-    gridPane.add(lbCelsius, 1, 1, 1, 1);
-    gridPane.add(btConvert, 0, 2, 2, 1);
-
-    scene = new Scene(gridPane);
-    stage.setTitle("°F to °C");
-    stage.setScene(scene);
-    stage.setResizable(false);
-    stage.show();
+      if(!Pattern.matches("[a-zA-Z]*", meno)) System.out.println("Zle meno!");
+    } while(!Pattern.matches("[a-zA-Z]*", meno));
+    
+    do{
+      System.out.print("Zadaj priezvisko: ");
+      priezvisko = sc.nextLine();
+      priezvisko = priezvisko.substring(0,1).toUpperCase() + priezvisko.substring(1).toLowerCase();
+      if(!Pattern.matches("[a-zA-Z]*", priezvisko)) System.out.println("Zle priezvisko!");
+    } while(!Pattern.matches("[a-zA-Z]*", priezvisko));
+    
+    
+    System.out.print("Zadaj pohlavie: ");
+    pohlavie = sc.nextLine(); 
+                                                
+    do{
+      System.out.print("Zadaj vek: ");
+      vek = sc.nextInt();
+      if(!(vek >= 18)) System.out.println("Zamestnanec musi byt plnelety!");
+    }while(!(vek >= 18));
+    
+    Clovek.pocetLudi++;
   }
   
+  public Clovek(String meno, String priezvisko){
+    //explicitny konstruktor
+    //volanie implicitneho konstruktora
+    /*System.out.println(this.meno);
+    System.out.println(this.priezvisko);
+    System.out.println(pohlavie);
+    System.out.println(vek);*/
+    this.meno = meno;
+    this.priezvisko = priezvisko; 
+    Clovek.pocetLudi++;
+  }      
   
-  class ButtonClick implements EventHandler{
-    @Override
-    public void handle(Event evt){
-      String input = txtInput.getText();
-      
-      if(Pattern.matches("[-+]?[0-9]*[.]?[0-9]*", input)){
-        lbOutput.setText(String.valueOf((String.format("%.3F" ,Convert.fahrenheitToCelsius(Float.parseFloat(input)))));
-      }else{
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Chyba!");
-        alert.setContentText("Zle zadana hodnota! \nZadaj cislo!");
-        alert.showAndWait();
-      }
-
-    }
-  } 
+  public Clovek(String meno, String priezvisko, String pohlavie, int vek){
+    //explicitny konstruktor   pretazeny
+    //volanie implicitneho konstruktora
+    
+    this(meno, priezvisko);   //volanie kontruktora z konstruktora     this na 1. mieste
+    this.pohlavie = pohlavie;     // this odkaz na objekt
+    this.vek = vek;  
+  }      
+  // start methods
+  
+  //nastavujeme hodotu datovej polozky
+  public void setMeno(String meno){
+    this.meno = meno;
+  }
+  
+  //ziskame hodnotu datovej polozky
+    
+  //Meno
+  public String getMeno(){
+    return meno;
+  }
+  
+  public void setPriezvisko(String priezvisko){
+    this.priezvisko = priezvisko;
+  }
+  
+  //Priezvisko
+  public String getPriezvisko(){
+    return priezvisko;
+  }
+  
+  //Vek
+  public void setVek(int vek){
+    this.vek = vek;
+  }
+  
+  public int getVek(){
+    return vek;
+  }
+  
+  //Pohlavie
+  public void setPohlavie(String pohlavie){
+    this.pohlavie = pohlavie;
+  }
+  
+  public String getPohlavie(){
+    return pohlavie;
+  }
+  
+  public void info(){
+    //System.out.println(meno + " " + priezvisko + " " + vek + " " + pohlavie);
+    System.out.println("Meno: " + getMeno() + "\nPriezvisko: " + getPriezvisko() + "\nVek: " + getVek() + "\nPohlavie: " + getPohlavie());
+    //System.out.println("Pocet Ludi: " + Clovek.pocetLudi);  
+  }                                  
+  // end methods
 }
+
+ public class GenerujClovek{
+  public static void main(String ang[]){
+    //Clovek adam = new Clovek();
+    //System.out.println(adam.meno + " " + adam.priezvisko + " " + adam.vek + " " + adam.pohlavie);
+    //adam.info();                                
+    
+    Clovek eva = new Clovek("Eva", "Prva");
+    //System.out.println(eva.meno + " " + eva.priezvisko + " " + eva.vek + " " + eva.pohlavie);
+    eva.info();
+    
+    
+    Clovek abel = new Clovek("Abel", "Druhy", "Muz", 50);
+    //System.out.println(abel.meno + " " + abel.priezvisko + " " + abel.vek + " " + abel.pohlavie);
+    abel.info();
+    //abel.setMeno("Kain");
+    //abel.setVek(55);
+    //System.out.println(abel.getMeno());
+    //abel.info();
+    
+    Clovek rodriguez = new Clovek();
+    rodriguez.info();
+  }
+  // end methods1
+ }
+
