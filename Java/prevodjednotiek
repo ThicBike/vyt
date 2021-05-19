@@ -1,0 +1,59 @@
+/*
+Premena jednotiek
+Tibor Pelegrin;
+3.A
+*/
+
+//importovanie potrebnych kniznic
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+
+public class PrevodJednotiek extends Application{
+  private Label lbHeader, lbFrom, lbTo, lbOutput;
+  private TextField txtInput;
+  private Button btConvert;
+  private RadioButton rbtFToC, rbtCToF, rbtMToKm, rbtKmToM;
+  private BorderPane borderPane;
+  private VBox vBox;
+  private GridPane gridPane;
+  private Scene scene;
+  
+  @Override
+  public void start(Stage stage){
+    lbHeader = new Label("Prevod jednotiek");
+    lbFrom = new Label("°F");
+    lbTo = new Label("°C");
+    rbtFToC = new RadioButton("°F -> °C");
+    rbtCToF = new RadioButton("°C -> °F");
+    rbtMToKm = new RadioButton("M -> ");
+    rbtKmToM = new RadioButton("Km -> M");
+    txtInput = new 
+    
+    
+    
+    borderPane = new BorderPane();
+    vBox = new VBox();
+    gridPane = new GridPane();  
+    borderPane.setTop(lbHeader);  
+      
+    //vytvrosil som scenu a pridal som do nej borderPane
+    scene = new Scene(borderPane);
+    //vytvorenu scenu som pridal na podium
+    stage.setScene(scene);
+    //nastavil som nazov okna
+    stage.setTitle("Premena jednotiek");
+    //zrusil som moznost zmenit velkost okna
+    stage.setResizable(false);
+    //zobrazenie okna
+    stage.show();  
+  }
+}
