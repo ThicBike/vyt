@@ -1,0 +1,65 @@
+.root {
+	-fx-padding: 15px;
+}
+
+.nadpis {
+	-fx-background-color: #f9fc58;
+	-fx-border-width: 5px;
+	-fx-border-color: yellow;
+	-fx-border-radius: 20px; 
+	-fx-background-radius: 20px;
+	-fx-font: 24px 'Arial';
+	-fx-font-weight: bold; 
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	
+	-fx-pref-width: 500px;
+	-fx-margin: 5px;
+
+}
+
+.label {
+	-fx-padding: 15px;
+}
+
+.grid-pane {
+	-fx-alignment: center;
+	-fx-vgap: 10px;
+	-fx-hgap: 10px;
+}
+
+.text-field {
+	-fx-pref-width: 200px;
+	-fx-padding: 10px 15px;
+	-fx-font-size: 16px;
+}
+
+.from, .to {
+	-fx-font-size: 22px;
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+}
+
+.output {
+	-fx-text-alignment: right;
+	-fx-pref-width: 200px;
+	-fx-padding: 10px 15px;
+	-fx-font-font: 24px;
+}
+
+.radio-button {
+	-fx-padding: 10px 20px;
+	-fx-font: 16px 'Arial';
+	-fx-font-weight: bold;
+}
+
+.button {
+	-fx-background-color: green;
+	-fx-border-radius: 30px;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}
+
+.v-box {
+	-fx-margin: 10px;
+}
