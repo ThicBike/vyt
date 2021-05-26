@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import java.util.regex.Pattern;
 import javafx.event.EventHandler;
 import javafx.event.Event;
+import javafx.geometry.*;
 
 
 
@@ -43,7 +44,9 @@ public class PrevodJednotiek extends Application{
     rbtMToKm = new RadioButton("M -> Km");
     rbtKmToM = new RadioButton("Km -> M");
     lbOutput = new Label();
+    lbOutput.setAlignment(Pos.BASELINE_RIGHT);
     txtInput = new TextField("Zadaj stupne Fahrenheita");
+    txtInput.setAlignment(Pos.BASELINE_RIGHT);
     
     btConvert = new Button("Convert");
    
@@ -67,6 +70,9 @@ public class PrevodJednotiek extends Application{
     gridPane.add(lbOutput, 0, 1, 1, 1);
     gridPane.add(lbTo, 1, 1, 1, 1);
     gridPane.add(btConvert, 0, 2, 2, 1);
+    gridPane.setAlignment(Pos.CENTER);
+    gridPane.setHalignment(btConvert, HPos.CENTER);
+  
     
     vBox = new VBox();
     vBox.getChildren().addAll(rbtFToC);
@@ -80,15 +86,26 @@ public class PrevodJednotiek extends Application{
     borderPane.setLeft(vBox);
     borderPane.setCenter(gridPane);
       
+    lbHeader.getStyleClass().add("nadpis");
+    lbFrom.getStyleClass().add("from");
+    lbTo.getStyleClass().add("to");
+    lbOutput.getStyleClass().add("output");
+    txtInput.getStyleClass().add("input");
+    rbtFToC.getStyleClass().add("fc");
+    rbtCToF.getStyleClass().add("fc");
+    rbtMToKm.getStyleClass().add("mkm");
+    rbtKmToM.getStyleClass().add("mkm");
       
     //vytvrosil som scenu a pridal som do nej borderPane
     scene = new Scene(borderPane);
+    
+    scene.getStylesheets().add("style.css");
     //vytvorenu scenu som pridal na podium
     stage.setScene(scene);
     //nastavil som nazov okna
     stage.setTitle("Premena jednotiek");
     //zrusil som moznost zmenit velkost okna
-    stage.setResizable(false);
+    //stage.setResizable(false);
     //zobrazenie okna
     stage.show();  
   }
@@ -96,7 +113,7 @@ public class PrevodJednotiek extends Application{
   class ButtonClick implements EventHandler{
     @Override
     public void handle(Event evt){
-      if(Pattern.matches("[-+]?[0-9]*[.]?[0-9]*", txtInput.getText())){ 
+      if(Pattern.matches("[-+]?[0-9]*[,]?[0-9]*", txtInput.getText())){ 
         //tu okomentujem toto hore [][][][]
         vyberAPremena();
       }else{
@@ -126,7 +143,7 @@ public class PrevodJednotiek extends Application{
         //nastavil som titulok pre alert
         alert.setTitle("Chyba!");
         //nastavil som hlasku alertu
-        alert.setContentText("Vyber moznost premeny a zadaj hodnotu!");
+        alert.setContentText("Vyber možnosť premeny a zadaj hodnotu!");
         //zobrazenie okna alertu
         alert.showAndWait();   
     }
@@ -157,7 +174,7 @@ public class PrevodJednotiek extends Application{
         //nastavil som titulok pre alert
         alert.setTitle("Chyba!");
         //nastavil som hlasku alertu
-        alert.setContentText("Vyber moznost premeny a zadaj hodnotu!");
+        alert.setContentText("Vyber možnosť premeny a zadaj hodnotu!");
         //zobrazenie okna alertu
         alert.showAndWait();
       }   
