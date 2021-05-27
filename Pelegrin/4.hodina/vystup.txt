@@ -1,0 +1,29 @@
+strana A = 10.0
+strana B = 20.5
+strana C = 1.2
+######
+objem = 246.00
+povrch = 483.20
+uhlopriecka = 22.84
+
+# Dalsi kvader #
+
+strana A = 0.0
+strana B = 17.0
+strana C = 10.2
+######
+objem = 0.00
+povrch = 346.80
+uhlopriecka = 19.83
+
+# Dalsi kvader #
+
+strana A = 1.0
+strana B = 1.0
+strana C = 1.0
+######
+objem = 1.00
+povrch = 6.00
+uhlopriecka = 1.73
+
+# Koniec #
