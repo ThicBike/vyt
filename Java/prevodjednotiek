@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 import javafx.event.EventHandler;
 import javafx.event.Event;
 import javafx.geometry.*;
+import java.io.InputStream;
+import javafx.scene.image.Image;
+import javafx.collections.*;
 
 
 
@@ -72,13 +75,15 @@ public class PrevodJednotiek extends Application{
     gridPane.add(btConvert, 0, 2, 2, 1);
     gridPane.setAlignment(Pos.CENTER);
     gridPane.setHalignment(btConvert, HPos.CENTER);
-  
+    gridPane.setVgap(15);
+    gridPane.setHgap(15);  
     
     vBox = new VBox();
     vBox.getChildren().addAll(rbtFToC);
     vBox.getChildren().addAll(rbtCToF);
     vBox.getChildren().addAll(rbtMToKm);
     vBox.getChildren().addAll(rbtKmToM);
+    vBox.setId("vbox");
     
     
     borderPane = new BorderPane();  
@@ -95,10 +100,16 @@ public class PrevodJednotiek extends Application{
     rbtCToF.getStyleClass().add("fc");
     rbtMToKm.getStyleClass().add("mkm");
     rbtKmToM.getStyleClass().add("mkm");
+    
+    //vytvoril som si vstupny prud dat
+    InputStream iconStream = getClass().getResourceAsStream("logo.png");
+    //vytvoril som objekt (obrazok) pomocou vstupnych dat
+    Image icon = new Image(iconStream);
+    //nastavil som ikonu pre okno
+    stage.getIcons().add(icon);
       
     //vytvrosil som scenu a pridal som do nej borderPane
     scene = new Scene(borderPane);
-    
     scene.getStylesheets().add("style.css");
     //vytvorenu scenu som pridal na podium
     stage.setScene(scene);
@@ -113,42 +124,52 @@ public class PrevodJednotiek extends Application{
   class ButtonClick implements EventHandler{
     @Override
     public void handle(Event evt){
-      if(Pattern.matches("[-+]?[0-9]*[,]?[0-9]*", txtInput.getText())){ 
+      String number = txtInput.getText().replaceAll(",", ".");
+      if(Pattern.matches("[-+]?[0-9]*[.]?[0-9]*", number)){ 
         //tu okomentujem toto hore [][][][]
-        vyberAPremena();
+        vyberAPremena(number);
       }else{
-        //vytvoril som objekt alert druhu warning
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        //nastavil som titulok pre alert
-        alert.setTitle("Chyba!");
-        //nastavil som hlasku alertu
-        alert.setContentText("Zle zadana hodnota! \nZadaj cislo!");
-        //zobrazenie okna alertu
-        alert.showAndWait();
+        showAlert("Zle zadana hodnota! \nZadaj cislo!");
       }
     }
           
-    public void vyberAPremena(){
+    public void vyberAPremena(String number){
       if(rbtFToC.isSelected()){
-        lbOutput.setText((String.format("%.3f", Convert.fahrenheitToCelsius(Float.parseFloat(txtInput.getText())))));
+        lbOutput.setText((String.format("%.3f", Convert.fahrenheitToCelsius(Float.parseFloat(number)))));
       }else if(rbtCToF.isSelected()){
-        lbOutput.setText((String.format("%.3f", Convert.cesiusToFahrenheit(Float.parseFloat(txtInput.getText())))));
+        lbOutput.setText((String.format("%.3f", Convert.cesiusToFahrenheit(Float.parseFloat(number)))));
+        showAlert("Zadaj kladné číslo!");
       }else if(rbtMToKm.isSelected()){
-        lbOutput.setText((String.format("%.3f", Convert.kilometersToMiles(Float.parseFloat(txtInput.getText())))));
+        if(Float.parseFloat(txtInput.getText()) >= 0){
+          lbOutput.setText((String.format("%.3f", Convert.kilometersToMiles(Float.parseFloat(number)))));
+        }else{
+          showAlert("Zadaj kladné číslo!");
+        }  
       }else if(rbtKmToM.isSelected()){
-        lbOutput.setText((String.format("%.3f", Convert.milesToKilometers(Float.parseFloat(txtInput.getText())))));
+        if(Float.parseFloat(txtInput.getText()) >= 0){
+          lbOutput.setText((String.format("%.3f", Convert.milesToKilometers(Float.parseFloat(number)))));
+        }else{
+          showAlert("Zadaj kladné číslo!");
+        } 
       }else{
-         //vytvoril som objekt alert druhu warning
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        //nastavil som titulok pre alert
-        alert.setTitle("Chyba!");
-        //nastavil som hlasku alertu
-        alert.setContentText("Vyber možnosť premeny a zadaj hodnotu!");
-        //zobrazenie okna alertu
-        alert.showAndWait();   
+         showAlert("Vyber možnosť premeny a zadaj hodnotu!"); 
+      }
+    } 
+    
+    public void showAlert(String text){ 
+      //vytvoril som objekt alert druhu warning
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+      stage.getIcons().add(new Image(getClass().getResourceAsStream("warning.png")));
+      //nastavil som titulok pre alert
+      alert.setTitle("Chyba!");
+      //nastavil som hlasku alertu
+      alert.setContentText(text);
+      //zobrazenie okna alertu
+      alert.showAndWait(); 
     }
-    }        
   }
+  
   class RadioButtonClick implements EventHandler{
     @Override
     public void handle(Event evt){
@@ -160,14 +181,14 @@ public class PrevodJednotiek extends Application{
         lbFrom.setText("°C");
         lbTo.setText("°F");
           txtInput.setText("Zadaj stupne Celsia");
-      }else if(rbtMToKm.isSelected()){
+      }else if(rbtMToKm.isSelected()){    
         lbFrom.setText("M");
         lbTo.setText("Km");
-            txtInput.setText("Zadaj mile");
+        txtInput.setText("Zadaj mile");
       }else if(rbtKmToM.isSelected()){
         lbFrom.setText("Km");
         lbTo.setText("M");
-              txtInput.setText("Zadaj kilometre");
+        txtInput.setText("Zadaj kilometre");
       }else{
          //vytvoril som objekt alert druhu warning
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -179,13 +200,5 @@ public class PrevodJednotiek extends Application{
         alert.showAndWait();
       }   
     }
-      
-      
-      
-    }
-   
-  
-        
-  
-      
+  }  
 }
